@@ -10,25 +10,26 @@ All the work is in [`cifar10.ipynb`](cifar10.ipynb):
 2. **Preprocessing** – data augmentation (rotation, horizontal flip, random resized crop) and an 80/20 train/validation split.
 3. **Custom CNN** – 4 convolutional layers with batch normalization and dropout (~18.6M trainable parameters), trained with Adam and a `ReduceLROnPlateau` scheduler.
 4. **Transfer learning** – a pre-trained ResNet50 with a custom classifier head, for comparison.
-5. **Inference** on a single external image.
+5. **Test-set evaluation** – accuracy, classification report and confusion matrix.
+6. **Inference** on a single external image.
 
 ## Results
 
-| Model | Epochs | Validation accuracy |
-| --- | --- | --- |
-| Custom CNN | 140 | 88.2% |
-| ResNet50 + custom head | stopped at 79 | 84.5% |
+| Model | Epochs | Validation accuracy | Test accuracy |
+| --- | --- | --- | --- |
+| Custom CNN | 140 | 88.2% | 89.5% |
+| ResNet50 + custom head | stopped at 79 | 84.5% | – |
 
-Accuracy is measured on the validation split, not on the held-out test set.
+The custom CNN is also evaluated on the held-out 10,000-image test set, with a per-class precision/recall report and a confusion matrix (see the notebook). The ResNet50 comparison was stopped early and not evaluated on the test set.
 
 ## Tech stack
 
-Python, PyTorch, torchvision, NumPy, OpenCV, Matplotlib
+Python, PyTorch, torchvision, scikit-learn, NumPy, OpenCV, Matplotlib
 
 ## Running it
 
 ```bash
-pip install torch torchvision numpy opencv-python matplotlib scipy pillow
+pip install -r requirements.txt
 jupyter notebook cifar10.ipynb
 ```
 
